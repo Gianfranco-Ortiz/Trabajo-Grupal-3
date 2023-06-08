@@ -25,24 +25,25 @@ public class TransactionController {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
     }
-/*
-    URL: http://localhost:8080/api/bank/v1/transactions/filterByNameCustomer
-    Method: GET
+
+    //URL: http://localhost:8080/api/bank/v1/transactions/filterByNameCustomer
+    //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/transactions/filterByNameCustomer")
     public ResponseEntity<List<Transaction>> getAllTransactionsByNameCustomer(@RequestParam (name = "nameCustomer") String nameCustomer){
-        return new ResponseEntity<List<Transaction>>(transactionRepository.findByNameCustomer(nameCustomer), HttpStatus.OK);
+        Long accountId = accountRepository.findByNameCustomer(nameCustomer).getId();
+        return new ResponseEntity<List<Transaction>>(transactionRepository.findByIdCustomer(accountId), HttpStatus.OK);
     }
 
-    URL: http://localhost:8080/api/bank/v1/transactions/filterByCreateDateRange
-    Method: GET
+    //URL: http://localhost:8080/api/bank/v1/transactions/filterByCreateDateRange
+    //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/transactions/filterByCreateDateRange")
-    public ResponseEntity<List<Transaction>> getAllTransactionsByCreateDateRange(@RequestParam (name = "startDate") String startDate,
-                                                                                 @RequestParam (name = "endDate") String endDate){
-        return new ResponseEntity<List<Transaction>>(transactionRepository.findByCreateDateRange(startDate, endDate), HttpStatus.OK);
+    public ResponseEntity<List<Transaction>> getAllTransactionsByCreateDateRange(@RequestParam (name = "startDate") LocalDate startDate,
+                                                                                 @RequestParam (name = "endDate") LocalDate endDate){
+        return new ResponseEntity<List<Transaction>>(transactionRepository.findTransactionByCreateDateRange(startDate, endDate), HttpStatus.OK);
     }
-*/
+
     //URL: http://localhost:8080/api/bank/v1/accounts/{id}/transactions
     //Method: POST
     @Transactional
